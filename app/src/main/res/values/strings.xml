@@ -9,4 +9,7 @@
     <string name="number_to">To</string>
     <string name="number_lb_hint">1</string>
     <string name="number_ub_hint">100</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
