@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        private static final String ARG_SECTION_NUMBER = "section_number_1";
 
         public PlaceholderFragment() {
         }
@@ -106,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Returns a new instance of this fragment for the given section
          * number.
-        */
+
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt(NumberFragment.ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
-        }
+        }*/
 
 
         @Override

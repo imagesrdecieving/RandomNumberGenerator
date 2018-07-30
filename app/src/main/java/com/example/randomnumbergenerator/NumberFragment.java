@@ -14,11 +14,6 @@ import android.view.ViewGroup;
  */
 public class NumberFragment extends Fragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-
     public static final String ARG_SECTION_NUMBER = "section_number_1";
     public NumberFragment() {
         // Required empty public constructor
@@ -28,9 +23,6 @@ public class NumberFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_SECTION_NUMBER);
-        }
     }
 
     @Override
