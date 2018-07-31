@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/number_lb_hint"
+            android:text="@string/number_lower_bound"
             android:inputType="number" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/number_ub_hint"
+            android:text="@string/number_upper_bound"
             android:inputType="number" />
 
     </LinearLayout>

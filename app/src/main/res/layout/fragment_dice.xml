@@ -33,15 +33,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/number_lb_hint"
+            android:hint="@string/dice_amount_dice"
             android:inputType="number" />
 
         <TextView
-            android:id="@+id/dice_amount_sides"
+            android:id="@+id/dice_number_sides"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/dice_amount_sides"
+            android:text="@string/dice_number_of_sides"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <EditText
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/dice_sides_hint"
+            android:text="@string/dice_amount_sides"
             android:inputType="number" />
 
     </LinearLayout>

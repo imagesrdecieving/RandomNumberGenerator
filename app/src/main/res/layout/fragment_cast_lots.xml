@@ -32,7 +32,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:gravity="center"
-           android:hint="@string/cast_lots_total_hint"
+           android:text="@string/cast_lots_total_hint"
            android:inputType="number"
            tools:textColorLink="@android:color/black" />
 
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/cast_lots_marked_hint"
+            android:text="@string/cast_lots_marked_hint"
             android:inputType="number" />
 
 

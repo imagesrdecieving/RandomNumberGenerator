@@ -9,13 +9,14 @@
     <string name="number_to">To</string>
     <string name="cast_lots_total_items">Total Items</string>
     <string name="cast_lots_marked_items">Marked Items</string>
-    <string name="number_lb_hint">1</string>
-    <string name="number_ub_hint">100</string>
+    <string name="number_lower_bound">1</string>
+    <string name="number_upper_bound">100</string>
     <string name="cast_lots_total_hint">6</string>
     <string name="cast_lots_marked_hint">1</string>
     <string name="dice_number_of_dice">Number of Dice</string>
-    <string name="dice_amount_sides">Number of Sides</string>
-    <string name="dice_sides_hint">6</string>
+    <string name="dice_amount_dice">1</string>
+    <string name="dice_number_of_sides">Number of Sides</string>
+    <string name="dice_amount_sides">6</string>
     <string name="list_placeholder">To Be \nNot To Be</string>
 
 </resources>
