@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    int fabState = 0;
+    FloatingActionButton fab;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,16 +60,59 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //int fabState = 0;
+        //final FloatingActionButton fab;
+
+        fab = findViewById(R.id.fab);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                fabState = position;
+                Snackbar.make(mViewPager.getRootView(), position+"", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
 
+
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(fabState == 0) {
+                    Snackbar.make(view, "Number - View 1", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                if(fabState == 1) {
+                    Snackbar.make(view, "List - View 2", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                if(fabState == 2) {
+                    Snackbar.make(view, "Dice - View 3", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                if(fabState == 3) {
+                    Snackbar.make(view, "Lots - View 4", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else{}
+            }
+        });
     }
+
+
+
 
 
     @Override
@@ -90,41 +137,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-        */
-        private static final String ARG_SECTION_NUMBER = "section_number_1";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(NumberFragment.ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }*/
 
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_main, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
 
 
     /**
