@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 fabState = position;
-                Snackbar.make(mViewPager.getRootView(), position+"", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(mViewPager.getRootView(), position+"", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
             }
 
             @Override
@@ -91,8 +92,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(fabState == 0) {
-                    Snackbar.make(view, "Number - View 1", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    EditText edit = (EditText)findViewById(R.id.number_lower_bound_input);
+                    int lowerBound = Integer.valueOf(edit.getText().toString());
+                    edit = (EditText)findViewById(R.id.number_upper_bound_input);
+                    int upperBound = Integer.valueOf(edit.getText().toString());
+                    NumberFragment lf = new NumberFragment();
+                    lf.display(view, lowerBound, upperBound);
+
                 }
                 if(fabState == 1) {
                     Snackbar.make(view, "List - View 2", Snackbar.LENGTH_LONG)

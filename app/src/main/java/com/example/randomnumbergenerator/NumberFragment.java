@@ -3,10 +3,13 @@ package com.example.randomnumbergenerator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Random;
 
 
 /**
@@ -40,5 +43,20 @@ public class NumberFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public void display(View view, int lowerBound, int upperBound){
+        int number = generateRandomNumber(lowerBound, upperBound);
+
+        Snackbar.make(view, number+"", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    private int generateRandomNumber(int lowerBound, int upperBound) {
+        Random rand = new Random();
+
+        int  n = rand.nextInt(upperBound) + lowerBound;
+
+        return n;
     }
 }
