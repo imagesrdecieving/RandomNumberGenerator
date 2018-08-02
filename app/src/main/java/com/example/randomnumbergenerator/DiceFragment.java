@@ -3,10 +3,14 @@ package com.example.randomnumbergenerator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Arrays;
+import java.util.Random;
 
 
 /**
@@ -39,5 +43,22 @@ public class DiceFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public void display(View view, int numberOfDice){
+        //int i = 0;
+        int[] n = new int[numberOfDice];
+        for(int i = 0; i < numberOfDice; i++) {
+            n[i] = generateRandomNumber();
+        }
+        Snackbar.make(view, Arrays.toString(n), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
+    }
+
+    private int generateRandomNumber() {
+        Random rand = new Random();
+
+        return rand.nextInt(6) + 1;
     }
 }

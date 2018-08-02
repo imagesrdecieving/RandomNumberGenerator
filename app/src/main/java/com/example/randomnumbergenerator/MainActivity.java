@@ -11,13 +11,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     int fabState = 0;
     FloatingActionButton fab;
 
+    //private RadioGroup radioGroup = findViewById(R.id.dice_radio_group);
+    //private RadioButton radioButton;
+    //private Button btnDisplay;
+    //private int selectedId = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        //int fabState = 0;
-        //final FloatingActionButton fab;
 
         fab = findViewById(R.id.fab);
 
@@ -105,8 +111,20 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                 }
                 if(fabState == 2) {
-                    Snackbar.make(view, "Dice - View 3", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    /*Snackbar.make(view, "Dice - View 3", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();*/
+
+                    RadioGroup radioGroup = findViewById(R.id.dice_radio_group);
+                    int radioButtonID = radioGroup.getCheckedRadioButtonId();
+                    View radioButton = radioGroup.findViewById(radioButtonID);
+                    int idx = radioGroup.indexOfChild(radioButton);
+
+                    RadioButton r = (RadioButton)  radioGroup.getChildAt(idx);
+                    String selectedText = r.getText().toString();
+
+                    int numberOfDice = Integer.valueOf(selectedText);
+                    DiceFragment df = new DiceFragment();
+                    df.display(view, numberOfDice);
                 }
                 if(fabState == 3) {
                     Snackbar.make(view, "Lots - View 4", Snackbar.LENGTH_LONG)
@@ -115,7 +133,10 @@ public class MainActivity extends AppCompatActivity {
                 else{}
             }
         });
+
+
     }
+
 
 
 
@@ -177,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
                     return fragment2;
 
                 case 2:
-
                     Fragment fragment3 = new DiceFragment();
                     Bundle args3 = new Bundle();
                     args3.putInt(DiceFragment.ARG_SECTION_NUMBER, position + 3);
