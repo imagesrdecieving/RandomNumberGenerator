@@ -25,6 +25,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -90,8 +95,23 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 if(fabState == 1) {
-                    Snackbar.make(view, "List - View 2", Snackbar.LENGTH_LONG)
+                    /*Snackbar.make(view, "List - View 2", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();*/
+                    ListFragment lf = new ListFragment();
+                    EditText editInput = (EditText) findViewById(R.id.list_input);
+                    String input = editInput.getText().toString();
+
+                    String[] list;
+                    String delimiter = "\n";
+
+                    list = input.split(delimiter);
+
+                    int result = lf.getRandomItemFromList(list.length);
+
+
+                    Snackbar.make(view, list[result], Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
                 }
                 if(fabState == 2) {
                     DiceFragment df = new DiceFragment();
