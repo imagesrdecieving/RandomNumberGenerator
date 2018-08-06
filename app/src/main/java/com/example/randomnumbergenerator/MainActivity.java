@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -27,76 +28,58 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    //private ViewPager mViewPager;
 
-    int fabState = 0;
+    int fabState = 0, numberOfDice, radioDice, otherDice;
     FloatingActionButton fab;
-
-    //private RadioGroup radioGroup = findViewById(R.id.dice_radio_group);
-    //private RadioButton radioButton;
-    //private Button btnDisplay;
-    //private int selectedId = 1;
-
+    //DiceFragment df = new DiceFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the four
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText("Number"));
+        tabLayout.addTab(tabLayout.newTab().setText("List"));
+        tabLayout.addTab(tabLayout.newTab().setText("Dice"));
+        tabLayout.addTab(tabLayout.newTab().setText("Cast Lots"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        final PagerAdapter mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        mViewPager.setAdapter(mPagerAdapter);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        fab = findViewById(R.id.fab);
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+                fabState = tab.getPosition();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
 
             @Override
-            public void onPageSelected(int position) {
-                fabState = position;
-                //Snackbar.make(mViewPager.getRootView(), position+"", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
 
-
-
+        fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(fabState == 0) {
                     EditText edit = (EditText)findViewById(R.id.number_lower_bound_input);
                     int lowerBound = Integer.valueOf(edit.getText().toString());
@@ -111,20 +94,29 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                 }
                 if(fabState == 2) {
-                    /*Snackbar.make(view, "Dice - View 3", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();*/
-
-                    RadioGroup radioGroup = findViewById(R.id.dice_radio_group);
-                    int radioButtonID = radioGroup.getCheckedRadioButtonId();
-                    View radioButton = radioGroup.findViewById(radioButtonID);
-                    int idx = radioGroup.indexOfChild(radioButton);
-
-                    RadioButton r = (RadioButton)  radioGroup.getChildAt(idx);
-                    String selectedText = r.getText().toString();
-
-                    int numberOfDice = Integer.valueOf(selectedText);
                     DiceFragment df = new DiceFragment();
-                    df.display(view, numberOfDice);
+                    EditText e;
+                    String selectedOtherText, selectedRadioText;
+                    int radioButtonID, idx;
+                    RadioGroup radioGroup;
+                    RadioButton r;
+                    View radioButton;
+                    CheckBox otherCheckBox = (CheckBox) findViewById(R.id.dice_other_checkbox);
+
+                   if(otherCheckBox.isChecked()) {
+                        e = (EditText) findViewById(R.id.dice_other_amount_input);
+                        selectedOtherText = e.getText().toString();
+                        df.display(view, Integer.valueOf(selectedOtherText));
+
+                    } else {
+                        radioGroup = findViewById(R.id.dice_radio_group);
+                        radioButtonID = radioGroup.getCheckedRadioButtonId();
+                        radioButton = radioGroup.findViewById(radioButtonID);
+                        idx = radioGroup.indexOfChild(radioButton);
+                        r = (RadioButton)  radioGroup.getChildAt(idx);
+                        selectedRadioText = r.getText().toString();
+                        df.display(view, Integer.valueOf(selectedRadioText));
+                    }
                 }
                 if(fabState == 3) {
                     Snackbar.make(view, "Lots - View 4", Snackbar.LENGTH_LONG)
@@ -133,14 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 else{}
             }
         });
-
-
     }
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,68 +147,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position) {
-                case 0:
-                    Fragment fragment = new NumberFragment();
-                    Bundle args = new Bundle();
-                    args.putInt(NumberFragment.ARG_SECTION_NUMBER, position + 1);
-                    fragment.setArguments(args);
-                    return fragment;
-
-                case 1:
-                    Fragment fragment2 = new ListFragment();
-                    Bundle args2 = new Bundle();
-                    args2.putInt(ListFragment.ARG_SECTION_NUMBER, position + 2);
-                    fragment2.setArguments(args2);
-                    return fragment2;
-
-                case 2:
-                    Fragment fragment3 = new DiceFragment();
-                    Bundle args3 = new Bundle();
-                    args3.putInt(DiceFragment.ARG_SECTION_NUMBER, position + 3);
-                    fragment3.setArguments(args3);
-                    return fragment3;
-
-                case 3:
-
-                    Fragment fragment4 = new CastLotsFragment();
-                    Bundle args4 = new Bundle();
-                    args4.putInt(CastLotsFragment.ARG_SECTION_NUMBER, position + 4);
-                    fragment4.setArguments(args4);
-                    return fragment4;
-
-
-                default:
-                    return null;
-            }
-
-            //return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 4;
-        }
     }
 }

@@ -10,6 +10,7 @@
     <string name="number_to">To</string>
     <string name="number_lower_bound">1</string>
     <string name="number_upper_bound">100</string>
+
     <string name="cast_lots_total_items">Total Items</string>
     <string name="cast_lots_marked_items">Marked Items</string>
     <string name="cast_lots_total_hint">6</string>

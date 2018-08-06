@@ -97,7 +97,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/dice_other_amount_dice_hint"
-            android:inputType="number" />
+            android:inputType="number"
+            android:focusable="false" />
 
     </LinearLayout>
 </FrameLayout>
